@@ -4,7 +4,7 @@ variables:
 
 command /chat [<text>]:
     permission: admin.chat
-    permission message: &7Nie posiadasz uprawnien &9do tej komendy!
+    permission message: &7You do not have permissions &9for this command!
     trigger:
         set {_gui} to chest inventory with 3 rows named "&9&lCHAT GUI"
         set slot 11 of {_gui}  to diamond named "&e&lON"
@@ -21,19 +21,19 @@ on inventory click:
         if clicked slot is 11:
             if {chat} is false:
                 clear {chat}
-                broadcast "&7Chat has been disabled by &9%player%&7!"
+                broadcast "&7Chat has been enabled by &9%player%&7!"
             else:
-                send "&7Chat jest &9aktualnie wlaczony!"
+                send "&7Chat is &9currently on!"
         if clicked slot is 13:
             loop 300 times:
                 broadcast " "
             broadcast "&7Chat has been cleared by &9%player%&7!"
         if clicked slot is 15:
             if {chat} is false:
-                send "&7Chat jest &9aktualnie wylaczony!"
+                send "&7Chat is &9currently disabled!"
             else:
                 set {chat} to false
-                broadcast "&7Chat has been enabled by &9%player%&7!"
+                broadcast "&7Chat has been disabled by &9%player%&7!"
 
 on chat:
     if {Chat} is false:
@@ -41,4 +41,4 @@ on chat:
             stop
         else:
             cancel event
-            send "&7Chat is &9disable!"
+            send "&7Chat is &9disabled!"
