@@ -1,0 +1,44 @@
+variables:
+        {chat} = true
+
+
+command /chat [<text>]:
+    permission: admin.chat
+    permission message: &7Vous n'avez pas l'autorisation &9 pour cette commande!
+    trigger:
+        set {_gui} to chest inventory with 3 rows named "&9&lCHAT GUI"
+        set slot 11 of {_gui}  to diamond named "&e&lON"
+        set slot 13 of {_gui}  to paper named "&f&lCLEAR"
+        set slot 15 of {_gui}  to paper named "&c&lOFF"
+        open {_gui} to player
+
+
+
+on inventory click:
+    event-inventory is not player's inventory
+    if name of event-inventory is "&9&lCHAT GUI":
+        cancel event
+        if clicked slot is 11:
+            if {chat} is false:
+                clear {chat}
+                broadcast "&7Le chat a été désactivé par &9%player%&7!"
+            else:
+                send "&7Le chat est &9 actuellement désactivé!"
+        if clicked slot is 13:
+            loop 300 times:
+                broadcast " "
+            broadcast "&7Le chat a été effacé par &9%player%&7!"
+        if clicked slot is 15:
+            if {chat} is false:
+                send "&7Le chat est &9 actuellement désactivé!"
+            else:
+                set {chat} to false
+                broadcast "&7Le chat a été désactivé par &9%player%&7!"
+
+on chat:
+    if {Chat} is false:
+        if player has permission "chat.bypass":
+            stop
+        else:
+            cancel event
+            send "&7Le chat est &9 désactivé!"
